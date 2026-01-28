@@ -1,0 +1,38 @@
+<div xmlns:th="http://www.thymeleaf.org">
+	<div class="d-flex justify-content-between align-items-center mb-3">
+		<h3>Pedidos</h3>
+		<a class="btn btn-primary" th:href="@{/pedidos/nuevo}">Nuevo
+			Pedido</a>
+	</div>
+
+
+	<table class="table table-bordered table-striped">
+		<thead class="table-dark">
+			<tr>
+				<th>ID Pedido</th>
+				<th>ID Cliente</th>
+				<th>Fecha Pedido</th>
+				<th>Estado</th>
+				<th>Tipo Venta</th>
+				<th>Total</th>
+				<th>Acciones</th>
+			</tr>
+		</thead>
+
+
+		<tbody>
+			<tr>
+				<td>1</td>
+				<td>1</td>
+				<td>2026-01-27 10:30</td>
+				<td>CREADO</td>
+				<td>CONTADO</td>
+				<td>25.50</td>
+				<td class="d-flex gap-2"><a class="btn btn-sm btn-info"
+					th:href="@{/pedidos/1/detalle}">Detalle</a> <a
+					class="btn btn-sm btn-warning">Editar</a> <a
+					class="btn btn-sm btn-danger">Eliminar</a></td>
+			</tr>
+		</tbody>
+	</table>
+</div>

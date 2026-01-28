@@ -1,0 +1,41 @@
+<div xmlns:th="http://www.thymeleaf.org">
+	<div class="d-flex justify-content-between align-items-center mb-3">
+		<h3>Clientes</h3>
+		<a class="btn btn-primary" th:href="@{/clientes/nuevo}">Nuevo
+			Cliente</a>
+	</div>
+
+
+	<table class="table table-bordered table-striped">
+		<thead class="table-dark">
+			<tr>
+				<th>ID</th>
+				<th>Tipo</th>
+				<th>Razón Social</th>
+				<th>Nombre Comercial</th>
+				<th>Identificación</th>
+				<th>Teléfono</th>
+				<th>Email</th>
+				<th>Dirección</th>
+				<th>Acciones</th>
+			</tr>
+		</thead>
+
+
+		<tbody>
+			
+			<tr>
+				<td>1</td>
+				<td>NATURAL</td>
+				<td>Juan Pérez</td>
+				<td>Tienda JP</td>
+				<td>0102030405</td>
+				<td>0999999999</td>
+				<td>juan@mail.com</td>
+				<td>Av. Siempre Viva</td>
+				<td class="d-flex gap-2"><a class="btn btn-sm btn-warning">Editar</a>
+					<a class="btn btn-sm btn-danger">Eliminar</a></td>
+			</tr>
+		</tbody>
+	</table>
+</div>

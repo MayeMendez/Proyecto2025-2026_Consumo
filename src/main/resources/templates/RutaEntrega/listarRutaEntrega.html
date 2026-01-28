@@ -1,0 +1,33 @@
+<div xmlns:th="http://www.thymeleaf.org">
+	<div class="d-flex justify-content-between align-items-center mb-3">
+		<h3>Rutas de Entrega</h3>
+		<a class="btn btn-primary" th:href="@{/rutas/nuevo}">Nueva Ruta</a>
+	</div>
+
+
+	<table class="table table-bordered table-striped">
+		<thead class="table-dark">
+			<tr>
+				<th>ID</th>
+				<th>ID Zona</th>
+				<th>Nombre Ruta</th>
+				<th>Distancia (Km)</th>
+				<th>Tiempo (min)</th>
+				<th>Acciones</th>
+			</tr>
+		</thead>
+
+
+		<tbody>
+			<tr>
+				<td>1</td>
+				<td>1</td>
+				<td>Ruta Norte</td>
+				<td>12.5</td>
+				<td>35</td>
+				<td class="d-flex gap-2"><a class="btn btn-sm btn-warning">Editar</a>
+					<a class="btn btn-sm btn-danger">Eliminar</a></td>
+			</tr>
+		</tbody>
+	</table>
+</div>

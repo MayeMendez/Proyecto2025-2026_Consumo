@@ -1,0 +1,29 @@
+<div class="card" xmlns:th="http://www.thymeleaf.org">
+	<div class="card-body">
+		<h4 class="mb-3">Formulario Zona</h4>
+
+
+		<form>
+			<div class="row g-3">
+				<div class="col-md-4">
+					<label class="form-label">Nombre Zona</label> <input
+						class="form-control" name="nombre_zona">
+				</div>
+				<div class="col-md-4">
+					<label class="form-label">Ciudad</label> <input
+						class="form-control" name="ciudad">
+				</div>
+				<div class="col-md-4">
+					<label class="form-label">Provincia</label> <input
+						class="form-control" name="provincia">
+				</div>
+			</div>
+
+
+			<div class="mt-3 d-flex gap-2">
+				<button class="btn btn-success" type="button">Guardar</button>
+				<a class="btn btn-secondary" th:href="@{/zonas}">Cancelar</a>
+			</div>
+		</form>
+	</div>
+</div>

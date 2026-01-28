@@ -1,0 +1,23 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark"
+	xmlns:th="http://www.thymeleaf.org" th:fragment="navbar">
+
+	<div class="container">
+		<a class="navbar-brand" th:href="@{/}">ProyectoConsumo</a>
+
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+			data-bs-target="#menu">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="menu">
+			<div class="navbar-nav ms-auto">
+				<a class="nav-link" th:href="@{/clientes}">Clientes</a> <a
+					class="nav-link" th:href="@{/productos}">Productos</a> <a
+					class="nav-link" th:href="@{/pedidos}">Pedidos</a> <a
+					class="nav-link" th:href="@{/repartidores}">Repartidores</a> <a
+					class="nav-link" th:href="@{/zonas}">Zonas</a> <a class="nav-link"
+					th:href="@{/rutas}">Rutas</a>
+			</div>
+		</div>
+	</div>
+</nav>

@@ -1,0 +1,36 @@
+<div xmlns:th="http://www.thymeleaf.org">
+	<div class="d-flex justify-content-between align-items-center mb-3">
+		<h3>Repartidores</h3>
+		<a class="btn btn-primary" th:href="@{/repartidores/nuevo}">Nuevo
+			Repartidor</a>
+	</div>
+
+
+	<table class="table table-bordered table-striped">
+		<thead class="table-dark">
+			<tr>
+				<th>ID</th>
+				<th>Nombres</th>
+				<th>Apellidos</th>
+				<th>CI</th>
+				<th>Teléfono</th>
+				<th>Email</th>
+				<th>Estado</th>
+				<th>Acciones</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>1</td>
+				<td>Ana</td>
+				<td>Lopez</td>
+				<td>1717171717</td>
+				<td>0988888888</td>
+				<td>ana@mail.com</td>
+				<td>ACTIVO</td>
+				<td class="d-flex gap-2"><a class="btn btn-sm btn-warning">Editar</a>
+					<a class="btn btn-sm btn-danger">Eliminar</a></td>
+			</tr>
+		</tbody>
+	</table>
+</div>

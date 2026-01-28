@@ -1,0 +1,74 @@
+<div xmlns:th="http://www.thymeleaf.org">
+	<div class="d-flex justify-content-between align-items-center mb-3">
+		<h3>Detalle Pedido</h3>
+		<a class="btn btn-secondary" th:href="@{/pedidos}">Volver</a>
+	</div>
+
+
+	<div class="card mb-3">
+		<div class="card-body">
+			<h5 class="mb-3">Agregar Producto</h5>
+
+
+			<div class="row g-2">
+				<div class="col-md-3">
+					<label class="form-label">ID Producto</label> <input
+						class="form-control" name="id_producto" type="number">
+				</div>
+
+
+				<div class="col-md-3">
+					<label class="form-label">Cantidad</label> <input
+						class="form-control" name="cantidad" type="number">
+				</div>
+
+
+				<div class="col-md-3">
+					<label class="form-label">Precio Unitario</label> <input
+						class="form-control" name="precio_unitario" type="number"
+						step="0.01">
+				</div>
+
+
+				<div class="col-md-3">
+					<label class="form-label">Subtotal</label> <input
+						class="form-control" name="subtotal" type="number" step="0.01">
+				</div>
+
+
+				<div class="col-12">
+					<button class="btn btn-primary" type="button">Agregar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<table class="table table-bordered table-striped">
+		<thead class="table-dark">
+			<tr>
+				<th>ID Detalle</th>
+				<th>ID Pedido</th>
+				<th>ID Producto</th>
+				<th>Cantidad</th>
+				<th>Precio Unitario</th>
+				<th>Subtotal</th>
+				<th>Acciones</th>
+			</tr>
+		</thead>
+
+
+		<tbody>
+			<!-- DEMO -->
+			<tr>
+				<td>1</td>
+				<td>1</td>
+				<td>1</td>
+				<td>2</td>
+				<td>10.00</td>
+				<td>20.00</td>
+				<td><a class="btn btn-sm btn-danger">Quitar</a></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
