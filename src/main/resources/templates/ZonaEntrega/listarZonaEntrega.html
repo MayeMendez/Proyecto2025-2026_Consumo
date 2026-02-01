@@ -4,7 +4,6 @@
 		<a class="btn btn-primary" th:href="@{/zonas/nuevo}">Nueva Zona</a>
 	</div>
 
-
 	<table class="table table-bordered table-striped">
 		<thead class="table-dark">
 			<tr>
@@ -15,14 +14,20 @@
 				<th>Acciones</th>
 			</tr>
 		</thead>
+
 		<tbody>
-			<tr>
-				<td>1</td>
-				<td>Centro</td>
-				<td>Quito</td>
-				<td>Pichincha</td>
-				<td class="d-flex gap-2"><a class="btn btn-sm btn-warning">Editar</a>
-					<a class="btn btn-sm btn-danger">Eliminar</a></td>
+			<tr th:each="z : ${zonas}">
+				<td th:text="${z.id_zona_entrega}"></td>
+				<td th:text="${z.nombre_zona}"></td>
+				<td th:text="${z.ciudad}"></td>
+				<td th:text="${z.provincia}"></td>
+
+				<td class="d-flex gap-2"><a class="btn btn-sm btn-warning"
+					th:href="@{/zonas/editar/{id}(id=${z.id_zona_entrega})}">Editar</a>
+
+					<a class="btn btn-sm btn-danger"
+					th:href="@{/zonas/eliminar/{id}(id=${z.id_zona_entrega})}"
+					onclick="return confirm('¿Eliminar zona?');">Eliminar</a></td>
 			</tr>
 		</tbody>
 	</table>

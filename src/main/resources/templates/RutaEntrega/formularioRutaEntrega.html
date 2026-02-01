@@ -1,34 +1,49 @@
 <div class="card" xmlns:th="http://www.thymeleaf.org">
 	<div class="card-body">
-		<h4 class="mb-3">Formulario Ruta</h4>
+		<h4 class="mb-3" th:text="${titulo}">Nueva Ruta</h4>
 
+		<form th:object="${ruta}"
+			th:action="${ruta.id_ruta_entrega == null} ? @{/rutas/guardar} : @{/rutas/actualizar}"
+			method="post">
 
-		<form>
+			<input type="hidden" th:field="*{id_ruta_entrega}" />
+
 			<div class="row g-3">
-				<div class="col-md-4">
-					<label class="form-label">ID Zona Entrega</label> <input
-						class="form-control" name="id_zona_entrega" type="number">
-				</div>
-				<div class="col-md-4">
-					<label class="form-label">Nombre Ruta</label> <input
-						class="form-control" name="nombre_ruta">
-				</div>
-				<div class="col-md-2">
-					<label class="form-label">Distancia Km</label> <input
-						class="form-control" name="distancia_estimada_km" type="number"
-						step="0.01">
-				</div>
-				<div class="col-md-2">
-					<label class="form-label">Tiempo Min</label> <input
-						class="form-control" name="tiempo_estimado_min" type="number">
-				</div>
-			</div>
 
+				<div class="col-md-4">
+					<label class="form-label">Zona</label> <select class="form-select"
+						th:field="*{id_zona_entrega}" required>
+						<option value="">-- Seleccione --</option>
+						<option th:each="z : ${zonas}" th:value="${z.id_zona_entrega}"
+							th:text="${z.nombre_zona + ' - ' + z.ciudad}"></option>
+					</select>
+				</div>
+
+				<div class="col-md-8">
+					<label class="form-label">Nombre Ruta</label> <input
+						class="form-control" th:field="*{nombre_ruta}" required
+						minlength="3" maxlength="100">
+				</div>
+
+				<div class="col-md-4">
+					<label class="form-label">Distancia Estimada (km)</label> <input
+						class="form-control" th:field="*{distancia_estimada_km}"
+						type="number" step="0.01" min="0" required>
+				</div>
+
+				<div class="col-md-4">
+					<label class="form-label">Tiempo Estimado (min)</label> <input
+						class="form-control" th:field="*{tiempo_estimado_min}"
+						type="number" min="1" required>
+				</div>
+
+			</div>
 
 			<div class="mt-3 d-flex gap-2">
-				<button class="btn btn-success" type="button">Guardar</button>
+				<button class="btn btn-success" type="submit">Guardar</button>
 				<a class="btn btn-secondary" th:href="@{/rutas}">Cancelar</a>
 			</div>
+
 		</form>
 	</div>
 </div>

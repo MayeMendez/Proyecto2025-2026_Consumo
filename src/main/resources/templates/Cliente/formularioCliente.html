@@ -1,58 +1,86 @@
 <div class="card" xmlns:th="http://www.thymeleaf.org">
 	<div class="card-body">
-		<h4 class="mb-3">Formulario Cliente</h4>
+		<h4 class="mb-3" th:text="${titulo}">Nuevo Cliente</h4>
 
 
-		<form>
+		<form th:object="${cliente}"
+			th:action="${cliente.id_cliente == 0} ? @{/clientes/guardar} : @{/clientes/actualizar}"
+			method="post">
+			
+			<input type="hidden" th:field="*{id_cliente}" />
+
 			<div class="row g-3">
+
+				
 				<div class="col-md-4">
-					<label class="form-label">Tipo Cliente</label> <input
-						class="form-control" name="tipo_cliente"
-						placeholder="NATURAL / JURIDICO">
+					<label class="form-label">Tipo Cliente</label> <select
+						class="form-select" th:field="*{tipo_cliente}" required>
+						<option value="">-- Seleccione --</option>
+						<option value="NATURAL">NATURAL</option>
+						<option value="JURIDICO">JURÍDICO</option>
+						<option value="CONSUMIDOR_FINAL">CONSUMIDOR FINAL</option>
+					</select>
 				</div>
 
-
+				
 				<div class="col-md-4">
 					<label class="form-label">Razón Social</label> <input
-						class="form-control" name="razon_social">
+						class="form-control" th:field="*{razon_social}" required
+						minlength="3" maxlength="100" autocomplete="organization">
 				</div>
 
-
+				
 				<div class="col-md-4">
 					<label class="form-label">Nombre Comercial</label> <input
-						class="form-control" name="nombre_comercial">
+						class="form-control" th:field="*{nombre_comercial}" required
+						minlength="3" maxlength="100" autocomplete="organization-title">
 				</div>
 
-
-				<div class="col-md-4">
+				
+				<div class="col-md-4" th:if="${cliente.id_cliente != 0}">
 					<label class="form-label">Identificación</label> <input
-						class="form-control" name="identificacion">
+						class="form-control" th:value="${cliente.identificacion}" readonly>
+					<input type="hidden" th:field="*{identificacion}">
 				</div>
 
+				<div class="col-md-4" th:if="${cliente.id_cliente == 0}">
+					<label class="form-label">Identificación</label> <input
+						class="form-control" th:field="*{identificacion}" required
+						pattern="^(\d{10}|\d{13})$" maxlength="13">
+				</div>
 
+				
 				<div class="col-md-4">
 					<label class="form-label">Teléfono</label> <input
-						class="form-control" name="telefono">
+						class="form-control" th:field="*{telefono}" required
+						pattern="^\d{9,10}$" title="Ingrese 9 o 10 dígitos."
+						maxlength="10" autocomplete="tel">
 				</div>
 
-
+				
 				<div class="col-md-4">
 					<label class="form-label">Email</label> <input class="form-control"
-						name="email" type="email">
+						th:field="*{email}" type="email" required maxlength="100"
+						pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+						title="Ingrese un correo válido. Ej: usuario@dominio.com"
+						autocomplete="email">
 				</div>
 
 
-				<div class="col-12">
+				
+				<div class="col-md-12">
 					<label class="form-label">Dirección</label> <input
-						class="form-control" name="direccion">
+						class="form-control" th:field="*{direccion}" required
+						minlength="5" maxlength="150" autocomplete="street-address">
 				</div>
-			</div>
 
+			</div>
 
 			<div class="mt-3 d-flex gap-2">
-				<button class="btn btn-success" type="button">Guardar</button>
+				<button class="btn btn-success" type="submit">Guardar</button>
 				<a class="btn btn-secondary" th:href="@{/clientes}">Cancelar</a>
 			</div>
+
 		</form>
 	</div>
 </div>

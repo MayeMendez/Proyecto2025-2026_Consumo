@@ -23,19 +23,25 @@
 
 
 		<tbody>
-			
-			<tr>
-				<td>1</td>
-				<td>NATURAL</td>
-				<td>Juan Pérez</td>
-				<td>Tienda JP</td>
-				<td>0102030405</td>
-				<td>0999999999</td>
-				<td>juan@mail.com</td>
-				<td>Av. Siempre Viva</td>
-				<td class="d-flex gap-2"><a class="btn btn-sm btn-warning">Editar</a>
-					<a class="btn btn-sm btn-danger">Eliminar</a></td>
+
+			<tr th:each="c : ${clientes}">
+				<td th:text="${c.id_cliente}"></td>
+				<td th:text="${c.tipo_cliente}"></td>
+				<td th:text="${c.razon_social}"></td>
+				<td th:text="${c.nombre_comercial}"></td>
+				<td th:text="${c.identificacion}"></td>
+				<td th:text="${c.telefono}"></td>
+				<td th:text="${c.email}"></td>
+				<td th:text="${c.direccion}"></td>
+
+				<td class="d-flex gap-2"><a class="btn btn-sm btn-warning"
+					th:href="@{/clientes/editar/{id}(id=${c.id_cliente})}">Editar</a> <a
+					class="btn btn-sm btn-danger"
+					th:href="@{/clientes/eliminar/{id}(id=${c.id_cliente})}"
+					onclick="return confirm('¿Eliminar cliente?');">Eliminar</a></td>
 			</tr>
+
 		</tbody>
+
 	</table>
 </div>

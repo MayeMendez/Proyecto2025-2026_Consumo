@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Inicio | Proyecto Dulce Fácil</title>
+
+<!-- Bootstrap -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+
+<!-- CSS propio -->
+<style>
+body {
+	background-color: #f5f6fa;
+}
+
+/* Card bienvenida */
+.welcome-card {
+	border-radius: 16px;
+}
+
+/* Cards dashboard */
+.dash-card {
+	border-radius: 16px;
+	transition: transform 0.25s ease, box-shadow 0.25s ease;
+	cursor: pointer;
+}
+
+.dash-card:hover {
+	transform: translateY(-6px);
+	box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
+}
+
+.dash-card .card-title {
+	font-weight: 600;
+}
+
+.dash-card .card-text {
+	font-size: 0.9rem;
+}
+
+/* Colores suaves */
+.bg-clientes {
+	background: linear-gradient(135deg, #74b9ff, #0984e3);
+	color: white;
+}
+
+.bg-productos {
+	background: linear-gradient(135deg, #55efc4, #00b894);
+	color: white;
+}
+
+.bg-pedidos {
+	background: linear-gradient(135deg, #ffeaa7, #fdcb6e);
+	color: #2d3436;
+}
+
+.bg-repartidores {
+	background: linear-gradient(135deg, #fab1a0, #e17055);
+	color: white;
+}
+
+.bg-zonas {
+	background: linear-gradient(135deg, #a29bfe, #6c5ce7);
+	color: white;
+}
+
+.bg-rutas {
+	background: linear-gradient(135deg, #81ecec, #00cec9);
+	color: #2d3436;
+}
+
+a.dashboard-link {
+	text-decoration: none;
+}
+</style>
+</head>
+
+<body>
+
+	<!-- NAVBAR -->
+	<div th:replace="layout/navbar :: navbar"></div>
+
+	<!-- BIENVENIDA -->
+	<div class="container mt-4">
+		<div class="card shadow welcome-card">
+			<div class="card-body text-center py-4">
+				<h1 class="mb-1">Bienvenida a Proyecto Dulce Fácil 🍰</h1>
+				<p class="text-muted mb-0">Sistema de gestión</p>
+			</div>
+		</div>
+	</div>
+
+	<!-- DASHBOARD CARDS -->
+	<div class="container mt-5">
+		<div class="row g-4">
+
+			<div class="col-12 col-md-4">
+				<a class="dashboard-link" th:href="@{/clientes}">
+					<div class="card dash-card bg-clientes h-100">
+						<div class="card-body">
+							<h5 class="card-title">Clientes</h5>
+							<p class="card-text">Administrar clientes del sistema</p>
+						</div>
+					</div>
+				</a>
+			</div>
+
+			<div class="col-12 col-md-4">
+				<a class="dashboard-link" th:href="@{/productos}">
+					<div class="card dash-card bg-productos h-100">
+						<div class="card-body">
+							<h5 class="card-title">Productos</h5>
+							<p class="card-text">Catálogo de productos</p>
+						</div>
+					</div>
+				</a>
+			</div>
+
+			<div class="col-12 col-md-4">
+				<a class="dashboard-link" th:href="@{/pedidos}">
+					<div class="card dash-card bg-pedidos h-100">
+						<div class="card-body">
+							<h5 class="card-title">Pedidos</h5>
+							<p class="card-text">Gestión de pedidos</p>
+						</div>
+					</div>
+				</a>
+			</div>
+
+			<div class="col-12 col-md-4">
+				<a class="dashboard-link" th:href="@{/repartidores}">
+					<div class="card dash-card bg-repartidores h-100">
+						<div class="card-body">
+							<h5 class="card-title">Repartidores</h5>
+							<p class="card-text">Control de repartidores</p>
+						</div>
+					</div>
+				</a>
+			</div>
+
+			<div class="col-12 col-md-4">
+				<a class="dashboard-link" th:href="@{/zonas}">
+					<div class="card dash-card bg-zonas h-100">
+						<div class="card-body">
+							<h5 class="card-title">Zonas</h5>
+							<p class="card-text">Zonas de entrega</p>
+						</div>
+					</div>
+				</a>
+			</div>
+
+			<div class="col-12 col-md-4">
+				<a class="dashboard-link" th:href="@{/rutas}">
+					<div class="card dash-card bg-rutas h-100">
+						<div class="card-body">
+							<h5 class="card-title">Rutas</h5>
+							<p class="card-text">Rutas de reparto</p>
+						</div>
+					</div>
+				</a>
+			</div>
+
+		</div>
+	</div>
+
+	<!-- Bootstrap JS -->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

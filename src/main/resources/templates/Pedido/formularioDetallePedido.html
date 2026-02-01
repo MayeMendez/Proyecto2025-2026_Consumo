@@ -1,0 +1,73 @@
+<div xmlns:th="http://www.thymeleaf.org">
+	<h4 class="mb-3" th:text="${titulo}"></h4>
+
+	<form th:object="${detalle}" th:action="@{/detallePedido/guardar}"
+		method="post">
+
+		<input type="hidden" th:field="*{id_pedido}" />
+
+	
+		<div class="mb-2">
+			<label class="form-label">Producto</label> <select
+				class="form-select" th:field="*{id_producto}"
+				onchange="actualizarPrecio()" required>
+				<option value="">-- Seleccione --</option>
+				<option th:each="p : ${productos}" th:value="${p.id_producto}"
+					th:text="${p.nombre_producto + ' | ' + p.categoria}"
+					th:attr="data-precio=${p.precio_unitario}"></option>
+			</select>
+		</div>
+
+		<div class="mb-2">
+			<label class="form-label">Cantidad</label> <input type="number"
+				class="form-control" th:field="*{cantidad}" min="1"
+				oninput="calcularSubtotal()" required />
+		</div>
+
+	
+		<div class="mb-2">
+			<label class="form-label">Precio Unitario</label> <input
+				type="number" class="form-control" th:field="*{precio_unitario}"
+				id="precio" step="0.01" readonly />
+		</div>
+
+
+		<div class="mb-3">
+			<label class="form-label">Subtotal</label> <input type="number"
+				class="form-control" th:field="*{subtotal}" id="subtotal"
+				step="0.01" readonly />
+		</div>
+
+		<div class="d-flex gap-2">
+			<button class="btn btn-success" type="submit">Guardar
+				Detalle</button>
+			<a class="btn btn-secondary" th:href="@{/pedidos}">Cancelar</a>
+		</div>
+	</form>
+</div>
+
+<script>
+	function actualizarPrecio() {
+		const select = document.querySelector('select[name="id_producto"]');
+		const opt = select.options[select.selectedIndex];
+
+		const precioAttr = opt ? opt.getAttribute("data-precio") : "0";
+		const precio = parseFloat(precioAttr || "0");
+
+		document.getElementById("precio").value = isNaN(precio) ? "0.00"
+				: precio.toFixed(2);
+		calcularSubtotal();
+	}
+
+	function calcularSubtotal() {
+		const cantidadVal = document.querySelector('input[name="cantidad"]').value;
+		const precioVal = document.getElementById("precio").value;
+
+		const cantidad = parseFloat(cantidadVal || "0");
+		const precio = parseFloat(precioVal || "0");
+
+		const subtotal = (isNaN(cantidad) ? 0 : cantidad)
+				* (isNaN(precio) ? 0 : precio);
+		document.getElementById("subtotal").value = subtotal.toFixed(2);
+	}
+</script>

@@ -2,7 +2,7 @@
 	xmlns:th="http://www.thymeleaf.org" th:fragment="navbar">
 
 	<div class="container">
-		<a class="navbar-brand" th:href="@{/}">ProyectoConsumo</a>
+		<a class="navbar-brand" th:href="@{/}">Proyecto Dulce Fácil</a>
 
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
 			data-bs-target="#menu">
@@ -10,13 +10,13 @@
 		</button>
 
 		<div class="collapse navbar-collapse" id="menu">
-			<div class="navbar-nav ms-auto">
-				<a class="nav-link" th:href="@{/clientes}">Clientes</a> <a
-					class="nav-link" th:href="@{/productos}">Productos</a> <a
-					class="nav-link" th:href="@{/pedidos}">Pedidos</a> <a
-					class="nav-link" th:href="@{/repartidores}">Repartidores</a> <a
-					class="nav-link" th:href="@{/zonas}">Zonas</a> <a class="nav-link"
-					th:href="@{/rutas}">Rutas</a>
+			<div class="navbar-nav ms-auto nav-cards">
+				<a class="nav-link card-link" th:href="@{/clientes}">Clientes</a> <a
+					class="nav-link card-link" th:href="@{/productos}">Productos</a> <a
+					class="nav-link card-link" th:href="@{/pedidos}">Pedidos</a> <a
+					class="nav-link card-link" th:href="@{/repartidores}">Repartidores</a>
+				<a class="nav-link card-link" th:href="@{/zonas}">Zonas</a> <a
+					class="nav-link card-link" th:href="@{/rutas}">Rutas</a>
 			</div>
 		</div>
 	</div>

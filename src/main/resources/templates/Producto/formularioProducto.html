@@ -1,56 +1,70 @@
 <div class="card" xmlns:th="http://www.thymeleaf.org">
 	<div class="card-body">
-		<h4 class="mb-3">Formulario Producto</h4>
+		<h4 class="mb-3" th:text="${titulo}">Nuevo Producto</h4>
 
+		<form th:object="${producto}"
+			th:action="${producto.id_producto == 0} ? @{/productos/guardar} : @{/productos/actualizar}"
+			method="post">
 
-		<form>
+			<input type="hidden" th:field="*{id_producto}" />
+
 			<div class="row g-3">
+
 				<div class="col-md-6">
 					<label class="form-label">Nombre Producto</label> <input
-						class="form-control" name="nombre_producto">
+						class="form-control" th:field="*{nombre_producto}" required
+						minlength="3" maxlength="100">
 				</div>
 
-
-				<div class="col-md-6">
-					<label class="form-label">Categoría</label> <input
-						class="form-control" name="categoria">
+				<div class="col-md-4">
+					<label class="form-label">Categoría</label> <select
+						class="form-select" th:field="*{categoria}" required>
+						<option value="">-- Seleccione --</option>
+						<option value="CHOCOLATES">Chocolates</option>
+						<option value="GOLOSINAS">Golosinas</option>
+						<option value="GALLETAS">Galletas</option>
+						<option value="CARAMELLOS">Caramelos</option>
+						<option value="CHICLES">Chicles</option>
+						<option value="SNACKS">Snacks</option>
+						<option value="BEBIDAS">Bebidas</option>
+						<option value="OTROS">Otros</option>
+					</select>
 				</div>
-
 
 				<div class="col-md-4">
 					<label class="form-label">Precio Unitario</label> <input
-						class="form-control" name="precio_unitario" type="number"
-						step="0.01">
+						class="form-control" th:field="*{precio_unitario}" type="number"
+						step="0.01" min="0" required>
 				</div>
-
 
 				<div class="col-md-4">
 					<label class="form-label">Stock Actual</label> <input
-						class="form-control" name="stock_actual" type="number">
+						class="form-control" th:field="*{stock_actual}" type="number"
+						min="0" required>
 				</div>
-
 
 				<div class="col-md-4">
 					<label class="form-label">Unidad Medida</label> <input
-						class="form-control" name="unidad_medida"
-						placeholder="kg, lt, und...">
+						class="form-control" th:field="*{unidad_medida}" required
+						maxlength="20" placeholder="kg, lt, und...">
 				</div>
-
 
 				<div class="col-md-4">
 					<label class="form-label">Activo</label> <select
-						class="form-select" name="activo">
-						<option value="true">SI</option>
-						<option value="false">NO</option>
+						class="form-select" th:field="*{activo}" required>
+						<option th:value="true">SI</option>
+						<option th:value="false">NO</option>
 					</select>
 				</div>
-			</div>
 
+			</div>
 
 			<div class="mt-3 d-flex gap-2">
-				<button class="btn btn-success" type="button">Guardar</button>
+				<button class="btn btn-success" type="submit"
+					th:text="${producto.id_producto == 0} ? 'Guardar' : 'Actualizar'">Guardar</button>
 				<a class="btn btn-secondary" th:href="@{/productos}">Cancelar</a>
 			</div>
+
 		</form>
 	</div>
 </div>

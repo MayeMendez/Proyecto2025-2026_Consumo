@@ -1,29 +1,78 @@
-<div class="card" xmlns:th="http://www.thymeleaf.org">
-	<div class="card-body">
-		<h4 class="mb-3">Formulario Zona</h4>
+<form th:object="${zona}"
+	th:action="${zona.id_zona_entrega == null or zona.id_zona_entrega == 0} ? @{/zonas/guardar} : @{/zonas/actualizar}"
+	method="post">
 
+	<input type="hidden" th:field="*{id_zona_entrega}" />
 
-		<form>
-			<div class="row g-3">
-				<div class="col-md-4">
-					<label class="form-label">Nombre Zona</label> <input
-						class="form-control" name="nombre_zona">
-				</div>
-				<div class="col-md-4">
-					<label class="form-label">Ciudad</label> <input
-						class="form-control" name="ciudad">
-				</div>
-				<div class="col-md-4">
-					<label class="form-label">Provincia</label> <input
-						class="form-control" name="provincia">
-				</div>
-			</div>
+	<div class="row g-3">
+		<div class="col-md-4">
+			<label class="form-label">Zona</label> <select class="form-select"
+				th:field="*{nombre_zona}" required>
+				<option value="">-- Seleccione --</option>
+				<option value="NORTE">NORTE</option>
+				<option value="CENTRO">CENTRO</option>
+				<option value="SUR">SUR</option>
+			</select>
+		</div>
 
+		<div class="col-md-4">
+			<label class="form-label">Ciudad</label> <input class="form-control"
+				th:field="*{ciudad}" list="ciudadesEc" required>
+			<datalist id="ciudadesEc">
+				<option value="Quito"></option>
+				<option value="Guayaquil"></option>
+				<option value="Cuenca"></option>
+				<option value="Santo Domingo"></option>
+				<option value="Manta"></option>
+				<option value="Portoviejo"></option>
+				<option value="Machala"></option>
+				<option value="Ambato"></option>
+				<option value="Riobamba"></option>
+				<option value="Loja"></option>
+				<option value="Ibarra"></option>
+				<option value="Esmeraldas"></option>
+				<option value="Quevedo"></option>
+				<option value="Babahoyo"></option>
+				<option value="Tulcán"></option>
+			</datalist>
+		</div>
 
-			<div class="mt-3 d-flex gap-2">
-				<button class="btn btn-success" type="button">Guardar</button>
-				<a class="btn btn-secondary" th:href="@{/zonas}">Cancelar</a>
-			</div>
-		</form>
+		<div class="col-md-4">
+			<label class="form-label">Provincia</label> <input
+				class="form-control" th:field="*{provincia}" list="provinciasEc"
+				required>
+			<datalist id="provinciasEc">
+				<option value="Azuay"></option>
+				<option value="Bolívar"></option>
+				<option value="Cañar"></option>
+				<option value="Carchi"></option>
+				<option value="Chimborazo"></option>
+				<option value="Cotopaxi"></option>
+				<option value="El Oro"></option>
+				<option value="Esmeraldas"></option>
+				<option value="Galápagos"></option>
+				<option value="Guayas"></option>
+				<option value="Imbabura"></option>
+				<option value="Loja"></option>
+				<option value="Los Ríos"></option>
+				<option value="Manabí"></option>
+				<option value="Morona Santiago"></option>
+				<option value="Napo"></option>
+				<option value="Orellana"></option>
+				<option value="Pastaza"></option>
+				<option value="Pichincha"></option>
+				<option value="Santa Elena"></option>
+				<option value="Santo Domingo de los Tsáchilas"></option>
+				<option value="Sucumbíos"></option>
+				<option value="Tungurahua"></option>
+				<option value="Zamora Chinchipe"></option>
+			</datalist>
+		</div>
+
 	</div>
-</div>
+
+	<div class="mt-3 d-flex gap-2">
+		<button class="btn btn-success" type="submit">Guardar</button>
+		<a class="btn btn-secondary" th:href="@{/zonas}">Cancelar</a>
+	</div>
+</form>

@@ -1,17 +1,20 @@
 <div xmlns:th="http://www.thymeleaf.org">
+
 	<div class="d-flex justify-content-between align-items-center mb-3">
 		<h3>Pedidos</h3>
-		<a class="btn btn-primary" th:href="@{/pedidos/nuevo}">Nuevo
-			Pedido</a>
+		<a class="btn btn-primary" th:href="@{/pedidos/nuevo}"> Nuevo
+			Pedido </a>
 	</div>
 
-
-	<table class="table table-bordered table-striped">
-		<thead class="table-dark">
+	<table class="table table-bordered table-striped align-middle">
+		<thead class="table-dark text-center">
 			<tr>
-				<th>ID Pedido</th>
-				<th>ID Cliente</th>
+				<th>ID</th>
+				<th>Cliente</th>
+				<th>Ruta</th>
+				<th>Repartidor</th>
 				<th>Fecha Pedido</th>
+				<th>Entrega</th>
 				<th>Estado</th>
 				<th>Tipo Venta</th>
 				<th>Total</th>
@@ -19,20 +22,39 @@
 			</tr>
 		</thead>
 
-
 		<tbody>
-			<tr>
-				<td>1</td>
-				<td>1</td>
-				<td>2026-01-27 10:30</td>
-				<td>CREADO</td>
-				<td>CONTADO</td>
-				<td>25.50</td>
-				<td class="d-flex gap-2"><a class="btn btn-sm btn-info"
-					th:href="@{/pedidos/1/detalle}">Detalle</a> <a
-					class="btn btn-sm btn-warning">Editar</a> <a
-					class="btn btn-sm btn-danger">Eliminar</a></td>
+			<tr th:each="p : ${pedidos}" class="text-center">
+
+				<td th:text="${p.id_pedido}"></td>
+				<td th:text="${p.id_cliente}"></td>
+				<td th:text="${p.id_ruta_entrega}"></td>
+				<td th:text="${p.id_repartidor}"></td>
+				<td th:text="${p.fecha_pedido}"></td>
+				<td th:text="${p.fecha_entrega_programada}"></td>
+				<td th:text="${p.estado}"></td>
+				<td th:text="${p.tipo_venta}"></td>
+				<td th:text="${p.total_pedido}"></td>
+
+				<td class="d-flex gap-1 justify-content-center">
+					<a th:if="${p.id_detalle_pedido != null}" class="btn btn-info btn-sm"
+					th:href="@{/pedidos/detallePedido/{idDetalle}(idDetalle=${p.id_detalle_pedido})}">
+						Ver Detalle </a>
+						
+					 <a	th:if="${p.id_detalle_pedido == null}"
+					class="btn btn-secondary btn-sm"
+					th:href="@{/detallePedido/nuevo/{idPedido}(idPedido=${p.id_pedido})}">
+						Agregar Detalle </a>
+						
+					<a class="btn btn-warning btn-sm"
+					th:href="@{/pedidos/editar/{id}(id=${p.id_pedido})}"> Editar </a> 
+					
+					<a class="btn btn-danger btn-sm"
+					th:href="@{/pedidos/eliminar/{id}(id=${p.id_pedido})}"
+					onclick="return confirm('¿Eliminar pedido?');"> Eliminar </a>
+
+				</td>
 			</tr>
 		</tbody>
 	</table>
+
 </div>

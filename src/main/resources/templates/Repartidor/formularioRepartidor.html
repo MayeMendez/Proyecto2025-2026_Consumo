@@ -1,41 +1,61 @@
 <div class="card" xmlns:th="http://www.thymeleaf.org">
 	<div class="card-body">
-		<h4 class="mb-3">Formulario Repartidor</h4>
+		<h4 class="mb-3" th:text="${titulo}">Nuevo Repartidor</h4>
 
+		<form th:object="${repartidor}"
+			th:action="${repartidor.id_repartidor == 0} ? @{/repartidores/guardar} : @{/repartidores/actualizar}"
+			method="post">
 
-		<form>
+			<input type="hidden" th:field="*{id_repartidor}" />
+
 			<div class="row g-3">
+
 				<div class="col-md-6">
 					<label class="form-label">Nombres</label> <input
-						class="form-control" name="nombres">
+						class="form-control" th:field="*{nombres}" required minlength="2"
+						maxlength="80">
 				</div>
+
 				<div class="col-md-6">
 					<label class="form-label">Apellidos</label> <input
-						class="form-control" name="apellidos">
+						class="form-control" th:field="*{apellidos}" required
+						minlength="2" maxlength="80">
 				</div>
+
 				<div class="col-md-4">
 					<label class="form-label">CI</label> <input class="form-control"
-						name="ci">
+						th:field="*{ci}" required pattern="^(\d{10})$" maxlength="10">
 				</div>
+
 				<div class="col-md-4">
 					<label class="form-label">Teléfono</label> <input
-						class="form-control" name="telefono">
+						class="form-control" th:field="*{telefono}" required
+						pattern="^\d{9,10}$" maxlength="10">
 				</div>
+
 				<div class="col-md-4">
 					<label class="form-label">Email</label> <input class="form-control"
-						name="email" type="email">
+						th:field="*{email}" type="email" required maxlength="100"
+						pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+						title="Ingrese un correo válido. Ej: usuario@dominio.com">
 				</div>
-				<div class="col-md-4">
-					<label class="form-label">Estado</label> <input
-						class="form-control" name="estado" placeholder="ACTIVO / INACTIVO">
-				</div>
-			</div>
 
+				<div class="col-md-4">
+					<label class="form-label">Estado</label> <select
+						class="form-select" th:field="*{estado}" required>
+						<option value="">-- Seleccione --</option>
+						<option value="ACTIVO">ACTIVO</option>
+						<option value="INACTIVO">INACTIVO</option>
+					</select>
+				</div>
+
+			</div>
 
 			<div class="mt-3 d-flex gap-2">
-				<button class="btn btn-success" type="button">Guardar</button>
+				<button class="btn btn-success" type="submit">Guardar</button>
 				<a class="btn btn-secondary" th:href="@{/repartidores}">Cancelar</a>
 			</div>
+
 		</form>
 	</div>
 </div>

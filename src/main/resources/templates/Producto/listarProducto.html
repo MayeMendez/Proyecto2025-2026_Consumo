@@ -5,32 +5,36 @@
 			Producto</a>
 	</div>
 
-
 	<table class="table table-bordered table-striped">
 		<thead class="table-dark">
 			<tr>
 				<th>ID</th>
 				<th>Nombre</th>
 				<th>Categoría</th>
-				<th>Precio Unitario</th>
+				<th>Precio</th>
 				<th>Stock</th>
 				<th>Unidad</th>
 				<th>Activo</th>
 				<th>Acciones</th>
 			</tr>
 		</thead>
+
 		<tbody>
-		
-			<tr>
-				<td>1</td>
-				<td>Arroz</td>
-				<td>Alimentos</td>
-				<td>1.25</td>
-				<td>100</td>
-				<td>kg</td>
-				<td>SI</td>
-				<td class="d-flex gap-2"><a class="btn btn-sm btn-warning">Editar</a>
-					<a class="btn btn-sm btn-danger">Eliminar</a></td>
+			<tr th:each="p : ${productos}">
+				<td th:text="${p.id_producto}"></td>
+				<td th:text="${p.nombre_producto}"></td>
+				<td th:text="${p.categoria}"></td>
+				<td th:text="${p.precio_unitario}"></td>
+				<td th:text="${p.stock_actual}"></td>
+				<td th:text="${p.unidad_medida}"></td>
+				<td th:text="${p.activo} ? 'SI' : 'NO'"></td>
+
+				<td class="d-flex gap-2"><a class="btn btn-sm btn-warning"
+					th:href="@{/productos/editar/{id}(id=${p.id_producto})}">Editar</a>
+
+					<a class="btn btn-sm btn-danger"
+					th:href="@{/productos/eliminar/{id}(id=${p.id_producto})}"
+					onclick="return confirm('¿Eliminar producto?');">Eliminar</a></td>
 			</tr>
 		</tbody>
 	</table>

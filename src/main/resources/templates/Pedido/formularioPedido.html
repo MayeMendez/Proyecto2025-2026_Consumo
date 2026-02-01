@@ -1,65 +1,88 @@
 <div class="card" xmlns:th="http://www.thymeleaf.org">
 	<div class="card-body">
-		<h4 class="mb-3">Formulario Pedido</h4>
+		<h4 class="mb-3" th:text="${titulo}">Nuevo Pedido</h4>
 
+		<form th:object="${pedido}"
+			th:action="${pedido.id_pedido == null} ? @{/pedidos/guardar} : @{/pedidos/actualizar}"
+			method="post">
 
-		<form>
+			<input type="hidden" th:field="*{id_pedido}" />
+
 			<div class="row g-3">
-				<div class="col-md-3">
-					<label class="form-label">ID Cliente</label> <input
-						class="form-control" name="id_cliente" type="number">
+
+				<div class="col-md-4">
+					<label class="form-label">Cliente</label> <select
+						class="form-select" th:field="*{id_cliente}" required>
+						<option value="">-- Seleccione --</option>
+						<option th:each="c : ${clientes}" th:value="${c.id_cliente}"
+							th:text="${c.razon_social + ' - ' + c.identificacion}"></option>
+					</select>
 				</div>
 
-
-				<div class="col-md-3">
-					<label class="form-label">ID Ruta Entrega</label> <input
-						class="form-control" name="id_ruta_entrega" type="number">
+				<div class="col-md-4">
+					<label class="form-label">Ruta</label> <select class="form-select"
+						th:field="*{id_ruta_entrega}" required>
+						<option value="">-- Seleccione --</option>
+						<option th:each="r : ${rutas}" th:value="${r.id_ruta_entrega}"
+							th:text="${r.nombre_ruta + ' (Zona ' + r.id_zona_entrega + ')'}"></option>
+					</select>
 				</div>
 
-
-				<div class="col-md-3">
-					<label class="form-label">ID Repartidor</label> <input
-						class="form-control" name="id_repartidor" type="number">
+				<div class="col-md-4">
+					<label class="form-label">Repartidor</label> <select
+						class="form-select" th:field="*{id_repartidor}" required>
+						<option value="">-- Seleccione --</option>
+						<option th:each="rep : ${repartidores}"
+							th:value="${rep.id_repartidor}"
+							th:text="${rep.nombres + ' ' + rep.apellidos}"></option>
+					</select>
 				</div>
 
-
-				<div class="col-md-3">
-					<label class="form-label">Fecha Pedido (fecha/hora)</label> <input
-						class="form-control" name="fecha_pedido" type="datetime-local">
+				<div class="col-md-4">
+					<label class="form-label">Fecha Pedido</label> <input
+						class="form-control" th:field="*{fecha_pedido}"
+						type="datetime-local" required>
 				</div>
 
-
-				<div class="col-md-3">
-					<label class="form-label">Fecha Entrega Programada</label> <input
-						class="form-control" name="fecha_entrega_programada" type="date">
+				<div class="col-md-4">
+					<label class="form-label">Entrega Programada</label> <input
+						class="form-control" th:field="*{fecha_entrega_programada}"
+						type="date" required>
 				</div>
 
-
-				<div class="col-md-3">
-					<label class="form-label">Estado</label> <input
-						class="form-control" name="estado"
-						placeholder="CREADO, ENTREGADO...">
+				<div class="col-md-4">
+					<label class="form-label">Estado</label> <select
+						class="form-select" th:field="*{estado}" required>
+						<option value="">-- Seleccione --</option>
+						<option value="PENDIENTE">PENDIENTE</option>
+						<option value="EN_RUTA">EN RUTA</option>
+						<option value="ENTREGADO">ENTREGADO</option>
+						<option value="CANCELADO">CANCELADO</option>
+					</select>
 				</div>
 
-
-				<div class="col-md-3">
-					<label class="form-label">Tipo Venta</label> <input
-						class="form-control" name="tipo_venta"
-						placeholder="CONTADO / CREDITO">
+				<div class="col-md-4">
+					<label class="form-label">Tipo Venta</label> <select
+						class="form-select" th:field="*{tipo_venta}" required>
+						<option value="">-- Seleccione --</option>
+						<option value="CONTADO">CONTADO</option>
+						<option value="CREDITO">CRÉDITO</option>
+					</select>
 				</div>
 
-
-				<div class="col-md-3">
+				<div class="col-md-4">
 					<label class="form-label">Total Pedido</label> <input
-						class="form-control" name="total_pedido" type="number" step="0.01">
+						class="form-control" th:field="*{total_pedido}" type="number"
+						step="0.01" min="0" required>
 				</div>
-			</div>
 
+			</div>
 
 			<div class="mt-3 d-flex gap-2">
-				<button class="btn btn-success" type="button">Guardar</button>
+				<button class="btn btn-success" type="submit">Guardar</button>
 				<a class="btn btn-secondary" th:href="@{/pedidos}">Cancelar</a>
 			</div>
+
 		</form>
 	</div>
 </div>

@@ -5,6 +5,7 @@
 			Repartidor</a>
 	</div>
 
+	<div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
 
 	<table class="table table-bordered table-striped">
 		<thead class="table-dark">
@@ -20,16 +21,19 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<td>1</td>
-				<td>Ana</td>
-				<td>Lopez</td>
-				<td>1717171717</td>
-				<td>0988888888</td>
-				<td>ana@mail.com</td>
-				<td>ACTIVO</td>
-				<td class="d-flex gap-2"><a class="btn btn-sm btn-warning">Editar</a>
-					<a class="btn btn-sm btn-danger">Eliminar</a></td>
+			<tr th:each="r : ${repartidores}">
+				<td th:text="${r.id_repartidor}"></td>
+				<td th:text="${r.nombres}"></td>
+				<td th:text="${r.apellidos}"></td>
+				<td th:text="${r.ci}"></td>
+				<td th:text="${r.telefono}"></td>
+				<td th:text="${r.email}"></td>
+				<td th:text="${r.estado}"></td>
+				<td class="d-flex gap-2"><a class="btn btn-sm btn-warning"
+					th:href="@{/repartidores/editar/{id}(id=${r.id_repartidor})}">Editar</a>
+					<a class="btn btn-sm btn-danger"
+					th:href="@{/repartidores/eliminar/{id}(id=${r.id_repartidor})}"
+					onclick="return confirm('¿Eliminar repartidor?');">Eliminar</a></td>
 			</tr>
 		</tbody>
 	</table>
