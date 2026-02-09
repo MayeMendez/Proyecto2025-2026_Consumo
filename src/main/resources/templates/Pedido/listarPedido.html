@@ -26,33 +26,27 @@
 			<tr th:each="p : ${pedidos}" class="text-center">
 
 				<td th:text="${p.id_pedido}"></td>
-				<td th:text="${p.id_cliente}"></td>
-				<td th:text="${p.id_ruta_entrega}"></td>
-				<td th:text="${p.id_repartidor}"></td>
+				<td th:text="${clienteMap[p.id_cliente]}"></td>
+				<td th:text="${rutaMap[p.id_ruta_entrega]}"></td>
+				<td th:text="${repMap[p.id_repartidor]}"></td>
+
 				<td th:text="${p.fecha_pedido}"></td>
 				<td th:text="${p.fecha_entrega_programada}"></td>
 				<td th:text="${p.estado}"></td>
 				<td th:text="${p.tipo_venta}"></td>
 				<td th:text="${p.total_pedido}"></td>
 
-				<td class="d-flex gap-1 justify-content-center">
-					<a th:if="${p.id_detalle_pedido != null}" class="btn btn-info btn-sm"
+				<td class="d-flex gap-1 justify-content-center"><a
+					th:if="${p.id_detalle_pedido != null}" class="btn btn-info btn-sm"
 					th:href="@{/pedidos/detallePedido/{idDetalle}(idDetalle=${p.id_detalle_pedido})}">
-						Ver Detalle </a>
-						
-					 <a	th:if="${p.id_detalle_pedido == null}"
+						Ver Detalle </a> <a th:if="${p.id_detalle_pedido == null}"
 					class="btn btn-secondary btn-sm"
 					th:href="@{/detallePedido/nuevo/{idPedido}(idPedido=${p.id_pedido})}">
-						Agregar Productos </a>
-						
-					<a class="btn btn-warning btn-sm"
-					th:href="@{/pedidos/editar/{id}(id=${p.id_pedido})}"> Editar </a> 
-					
-					<a class="btn btn-danger btn-sm"
+						Agregar Productos </a> <a class="btn btn-warning btn-sm"
+					th:href="@{/pedidos/editar/{id}(id=${p.id_pedido})}"> Editar </a> <a
+					class="btn btn-danger btn-sm"
 					th:href="@{/pedidos/eliminar/{id}(id=${p.id_pedido})}"
-					onclick="return confirm('¿Eliminar pedido?');"> Eliminar </a>
-
-				</td>
+					onclick="return confirm('¿Eliminar pedido?');"> Eliminar </a></td>
 			</tr>
 		</tbody>
 	</table>

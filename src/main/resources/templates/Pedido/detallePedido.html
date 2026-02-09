@@ -26,7 +26,7 @@
 			<tr th:each="d : ${detalles}" class="text-center">
 				<td th:text="${d.id_detalle_pedido}"></td>
 				<td th:text="${d.id_pedido}"></td>
-				<td th:text="${d.id_producto}"></td>
+				<td th:text="${productoMap[d.id_producto]}"></td>
 				<td th:text="${d.cantidad}"></td>
 				<td th:text="${d.precio_unitario}"></td>
 				<td th:text="${d.subtotal}"></td>
