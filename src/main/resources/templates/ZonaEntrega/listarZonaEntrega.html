@@ -22,10 +22,9 @@
 				<td th:text="${z.ciudad}"></td>
 				<td th:text="${z.provincia}"></td>
 
-				<td class="d-flex gap-2"><a class="btn btn-sm btn-warning"
-					th:href="@{/zonas/editar/{id}(id=${z.id_zona_entrega})}">Editar</a>
-
-					<a class="btn btn-sm btn-danger"
+				<td class="d-flex gap-2"><a class="btn btn-warning btn-sm"
+					th:href="@{/zonas/editar-con-rutas/{id}(id=${z.id_zona_entrega})}">
+						Editar </a> <a class="btn btn-sm btn-danger"
 					th:href="@{/zonas/eliminar/{id}(id=${z.id_zona_entrega})}"
 					onclick="return confirm('¿Eliminar zona?');">Eliminar</a></td>
 			</tr>

@@ -11,5 +11,6 @@ public interface ClienteServicio {
     ClienteModelo guardar(ClienteModelo cliente);
     void actualizar(ClienteModelo cliente);
     void eliminar(Integer id);
-	
+    boolean existePorIdentificacion(String identificacion);
+   
 }

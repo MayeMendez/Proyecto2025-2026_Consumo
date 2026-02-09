@@ -72,16 +72,16 @@ public class RepartidorControlador {
 	}
 
 	@GetMapping("/eliminar/{id}")
-	public String eliminar(@PathVariable Integer id, Model model) {
+	public String eliminar(@PathVariable Integer id, RedirectAttributes ra) {
 		try {
 			repartidorServicio.eliminar(id);
-			return "redirect:/repartidores";
+			ra.addFlashAttribute("mensaje", "Repartidor eliminado correctamente.");
+			ra.addFlashAttribute("tipo", "success");
 		} catch (Exception e) {
-			model.addAttribute("error", "No se puede eliminar: el repartidor está ligado a pedidos.");
-			model.addAttribute("repartidores", repartidorServicio.listar());
-			model.addAttribute("titulo", "Repartidores");
-			model.addAttribute("contenido", "Repartidor/listarRepartidor");
-			return "layout/base";
+			ra.addFlashAttribute("mensaje", "No se puede eliminar: el repartidor está ligado a pedidos.");
+			ra.addFlashAttribute("tipo", "danger");
 		}
+		return "redirect:/repartidores";
 	}
+
 }

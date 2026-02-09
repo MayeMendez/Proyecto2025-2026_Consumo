@@ -11,5 +11,5 @@ public interface RutaEntregaServicio {
     void guardar(RutaEntregaModelo ruta);
     void actualizar(RutaEntregaModelo ruta);
     void eliminar(Integer id);
-	
+    List<RutaEntregaModelo> listarPorZona(Integer idZona);
 }

@@ -2,76 +2,79 @@
 	<div class="card-body">
 		<h4 class="mb-3" th:text="${titulo}">Nuevo Cliente</h4>
 
-
 		<form th:object="${cliente}"
 			th:action="${cliente.id_cliente == 0} ? @{/clientes/guardar} : @{/clientes/actualizar}"
 			method="post">
-			
+
 			<input type="hidden" th:field="*{id_cliente}" />
+
+			<!-- MENSAJE DE CONSUMO FINAL-->
+			<div id="infoConsumidorFinal" class="alert alert-info"
+				th:style="${consumidorFinalExiste} ? 'display:none;' : 'display:none;'">
+				<b>Info:</b> El cliente <b>CONSUMIDOR FINAL</b> (CI/RUC: <b>9999999999</b>)
+				ya existe como <b>único registro</b>. <br /> <b>Recomendación:</b>
+				Use el consumidor final existente.
+			</div>
 
 			<div class="row g-3">
 
-				
+				<!-- TIPO CLIENTE -->
 				<div class="col-md-4">
-					<label class="form-label">Tipo Cliente</label> <select
-						class="form-select" th:field="*{tipo_cliente}" required>
-						<option value="">-- Seleccione --</option>
-						<option value="NATURAL">NATURAL</option>
-						<option value="JURIDICO">JURÍDICO</option>
-						<option value="CONSUMIDOR_FINAL">CONSUMIDOR FINAL</option>
+					<label class="form-label">Tipo de cliente</label> <select
+						class="form-select" th:field="*{tipo_cliente}" id="tipoCliente"
+						required>
+						<option value="CEDULA">Persona Natural (Cédula)</option>
+						<option value="RUC">Empresa (RUC)</option>
+						<option value="CONSUMIDOR_FINAL">Consumidor Final</option>
 					</select>
 				</div>
 
-				
+				<!-- RAZÓN SOCIAL -->
 				<div class="col-md-4">
-					<label class="form-label">Razón Social</label> <input
-						class="form-control" th:field="*{razon_social}" required
-						minlength="3" maxlength="100" autocomplete="organization">
+					<label class="form-label">Nombre del cliente</label> <input
+						class="form-control" th:field="*{razon_social}" id="razonSocial"
+						required minlength="3" maxlength="100">
 				</div>
 
-				
+				<!-- NOMBRE COMERCIAL -->
 				<div class="col-md-4">
-					<label class="form-label">Nombre Comercial</label> <input
-						class="form-control" th:field="*{nombre_comercial}" required
-						minlength="3" maxlength="100" autocomplete="organization-title">
+					<label class="form-label">Nombre comercial</label> <input
+						class="form-control" th:field="*{nombre_comercial}"
+						id="nombreComercial" required minlength="3" maxlength="100">
 				</div>
 
-				
+				<!-- IDENTIFICACIÓN (NUEVO) -->
+				<div class="col-md-4" th:if="${cliente.id_cliente == 0}">
+					<label class="form-label">Identificación</label> <input
+						class="form-control" th:field="*{identificacion}"
+						id="identificacion" required maxlength="13">
+				</div>
+
+				<!-- IDENTIFICACIÓN (EDITAR) -->
 				<div class="col-md-4" th:if="${cliente.id_cliente != 0}">
 					<label class="form-label">Identificación</label> <input
 						class="form-control" th:value="${cliente.identificacion}" readonly>
 					<input type="hidden" th:field="*{identificacion}">
 				</div>
 
-				<div class="col-md-4" th:if="${cliente.id_cliente == 0}">
-					<label class="form-label">Identificación</label> <input
-						class="form-control" th:field="*{identificacion}" required
-						pattern="^(\d{10}|\d{13})$" maxlength="13">
-				</div>
-
-				
+				<!-- TELÉFONO -->
 				<div class="col-md-4">
 					<label class="form-label">Teléfono</label> <input
-						class="form-control" th:field="*{telefono}" required
-						pattern="^\d{9,10}$" title="Ingrese 9 o 10 dígitos."
-						maxlength="10" autocomplete="tel">
+						class="form-control" th:field="*{telefono}" id="telefono"
+						pattern="^[0-9]{9,10}$" maxlength="10" autocomplete="tel">
 				</div>
 
-				
+				<!-- EMAIL -->
 				<div class="col-md-4">
-					<label class="form-label">Email</label> <input class="form-control"
-						th:field="*{email}" type="email" required maxlength="100"
-						pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
-						title="Ingrese un correo válido. Ej: usuario@dominio.com"
-						autocomplete="email">
+					<label class="form-label">Correo electrónico</label> <input class="form-control"
+						th:field="*{email}" id="email" type="email" maxlength="100">
 				</div>
 
-
-				
+				<!-- DIRECCIÓN -->
 				<div class="col-md-12">
 					<label class="form-label">Dirección</label> <input
-						class="form-control" th:field="*{direccion}" required
-						minlength="5" maxlength="150" autocomplete="street-address">
+						class="form-control" th:field="*{direccion}" id="direccion"
+						minlength="5" maxlength="150">
 				</div>
 
 			</div>
@@ -84,3 +87,105 @@
 		</form>
 	</div>
 </div>
+
+<script th:inline="javascript">
+document.addEventListener("DOMContentLoaded", () => {
+
+  const clienteEsEdit = /*[[${cliente.id_cliente != 0}]]*/ false;
+  const consumidorFinalExiste = /*[[${consumidorFinalExiste}]]*/ false;
+
+  const tipo = document.getElementById("tipoCliente");
+  const identificacion = document.getElementById("identificacion");
+  const razonSocial = document.getElementById("razonSocial");
+  const nombreComercial = document.getElementById("nombreComercial");
+  const telefono = document.getElementById("telefono");
+  const email = document.getElementById("email");
+  const direccion = document.getElementById("direccion");
+  const msgConsumidorFinal = document.getElementById("msgConsumidorFinal");
+
+  function mostrarMsgConsumidorFinal(mostrar) {
+    if (!msgConsumidorFinal) return;
+    if (mostrar) msgConsumidorFinal.classList.remove("d-none");
+    else msgConsumidorFinal.classList.add("d-none");
+  }
+
+  function aplicarReglas() {
+
+    if (clienteEsEdit) {
+      mostrarMsgConsumidorFinal(false);
+      return;
+    }
+
+    if (!identificacion) return;
+
+    if (tipo.value === "CONSUMIDOR_FINAL") {
+
+      // muestra si ya existe en BD
+      mostrarMsgConsumidorFinal(consumidorFinalExiste);
+
+      // Autollenado
+      identificacion.value = "9999999999";
+      razonSocial.value = "CONSUMIDOR FINAL";
+      nombreComercial.value = "CONSUMIDOR FINAL";
+
+      telefono.value = "999999999";
+      email.value = "noaplica@noaplica.com";
+      direccion.value = "NO APLICA";
+
+      // Bloquear campos
+      identificacion.readOnly = true;
+      razonSocial.readOnly = true;
+      nombreComercial.readOnly = true;
+      telefono.readOnly = true;
+      email.readOnly = true;
+      direccion.readOnly = true;
+
+      // limpiar estado de validación
+      identificacion.setCustomValidity("");
+      telefono.setCustomValidity("");
+      email.setCustomValidity("");
+      direccion.setCustomValidity("");
+    } else {
+
+      // Ocultar nota
+      mostrarMsgConsumidorFinal(false);
+
+      // Desbloquear campos
+      identificacion.readOnly = false;
+      razonSocial.readOnly = false;
+      nombreComercial.readOnly = false;
+      telefono.readOnly = false;
+      email.readOnly = false;
+      direccion.readOnly = false;
+
+      // Validación de identificación según tipo
+      if (tipo.value === "CEDULA") {
+        identificacion.setAttribute("pattern", "^[0-9]{10}$");
+        identificacion.setAttribute("maxlength", "10");
+      } else if (tipo.value === "RUC") {
+        identificacion.setAttribute("pattern", "^[0-9]{13}$");
+        identificacion.setAttribute("maxlength", "13");
+      } else {
+        identificacion.removeAttribute("pattern");
+        identificacion.setAttribute("maxlength", "13");
+      }
+
+      // limpiar autollenado
+      if (identificacion.value === "9999999999") identificacion.value = "";
+      if (razonSocial.value === "CONSUMIDOR FINAL") razonSocial.value = "";
+      if (nombreComercial.value === "CONSUMIDOR FINAL") nombreComercial.value = "";
+      if (telefono.value === "999999999") telefono.value = "";
+      if (email.value === "noaplica@noaplica.com") email.value = "";
+      if (direccion.value === "NO APLICA") direccion.value = "";
+
+      identificacion.setCustomValidity("");
+      telefono.setCustomValidity("");
+      email.setCustomValidity("");
+      direccion.setCustomValidity("");
+    }
+  }
+
+  tipo.addEventListener("change", aplicarReglas);
+  aplicarReglas();
+});
+</script>

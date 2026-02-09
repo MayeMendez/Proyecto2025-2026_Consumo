@@ -2,7 +2,8 @@
 	xmlns:th="http://www.thymeleaf.org" th:fragment="navbar">
 
 	<div class="container">
-		<a class="navbar-brand" th:href="@{/}">Proyecto Dulce Fácil</a>
+		<a class="navbar-brand" th:href="@{/inicio}">Dulce Fácil</a>
+
 
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
 			data-bs-target="#menu">
@@ -16,7 +17,8 @@
 					class="nav-link card-link" th:href="@{/pedidos}">Pedidos</a> <a
 					class="nav-link card-link" th:href="@{/repartidores}">Repartidores</a>
 				<a class="nav-link card-link" th:href="@{/zonas}">Zonas</a> <a
-					class="nav-link card-link" th:href="@{/rutas}">Rutas</a>
+					class="nav-link text-warning" th:href="@{/logout}">Salir</a>
+
 			</div>
 		</div>
 	</div>

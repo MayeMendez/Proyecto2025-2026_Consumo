@@ -11,7 +11,7 @@
 			<div class="row g-3">
 
 				<div class="col-md-6">
-					<label class="form-label">Nombre Producto</label> <input
+					<label class="form-label">Nombre del producto</label> <input
 						class="form-control" th:field="*{nombre_producto}" required
 						minlength="3" maxlength="100">
 				</div>
@@ -31,26 +31,33 @@
 					</select>
 				</div>
 
-				<div class="col-md-4">
-					<label class="form-label">Precio Unitario</label> <input
-						class="form-control" th:field="*{precio_unitario}" type="number"
-						step="0.01" min="0" required>
+				<div class="mb-3">
+					<label class="form-label">Precio por funda</label> <input
+						type="number" step="0.01" class="form-control"
+						th:field="*{precio_unitario}">
+					<div class="form-text text-muted">Precio por funda (los
+						productos ya vienen empacados)</div>
 				</div>
 
-				<div class="col-md-4">
-					<label class="form-label">Stock Actual</label> <input
-						class="form-control" th:field="*{stock_actual}" type="number"
-						min="0" required>
+
+				<div class="mb-3">
+					<label class="form-label">Stock disponible (fundas)</label> <input
+						type="number" class="form-control" th:field="*{stock_actual}">
+					<div class="form-text text-muted">Cantidad de fundas
+						disponibles</div>
 				</div>
 
+
+				<!-- UNIDAD DE MEDIDA -->
 				<div class="col-md-4">
-					<label class="form-label">Unidad Medida</label> <input
-						class="form-control" th:field="*{unidad_medida}" required
-						maxlength="20" placeholder="kg, lt, und...">
+					<label class="form-label">Presentación</label> <input type="text"
+						class="form-control" value="FUNDA" readonly> <input
+						type="hidden" th:field="*{unidad_medida}" value="FUNDA">
 				</div>
 
+
 				<div class="col-md-4">
-					<label class="form-label">Activo</label> <select
+					<label class="form-label">Disponible para venta</label> <select
 						class="form-select" th:field="*{activo}" required>
 						<option th:value="true">SI</option>
 						<option th:value="false">NO</option>

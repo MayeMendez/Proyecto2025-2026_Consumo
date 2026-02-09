@@ -14,6 +14,10 @@ import com.uisrael.proyectoconsumo.servicio.ClienteServicio;
 public class ClienteServicioImpl implements ClienteServicio {
 
 	private final RestTemplate restTemplate;
+	
+	@Value("${app.api.base-url:http://localhost:8080}")
+	private String apiBaseUrl;
+
 
 	@Value("${app.api.base-url}")
 	private String baseUrl;
@@ -53,5 +57,13 @@ public class ClienteServicioImpl implements ClienteServicio {
 		String url = baseUrl + "/api/cliente/" + id;
 		restTemplate.delete(url);
 	}
+
+	@Override
+	public boolean existePorIdentificacion(String identificacion) {
+	    String url = apiBaseUrl + "/api/cliente/existe/" + identificacion;
+	    Boolean res = restTemplate.getForObject(url, Boolean.class);
+	    return res != null && res;
+	}
+
 
 }

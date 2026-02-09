@@ -32,7 +32,12 @@ public class ClienteControlador {
 
 	@GetMapping("/nuevo")
 	public String nuevo(Model model) {
+
+		boolean consumidorFinalExiste = clienteServicio.existePorIdentificacion("9999999999");
+
 		model.addAttribute("cliente", new ClienteModelo(0, "", "", "", "", "", "", ""));
+		model.addAttribute("consumidorFinalExiste", consumidorFinalExiste);
+
 		model.addAttribute("titulo", "Nuevo Cliente");
 		model.addAttribute("contenido", "Cliente/formularioCliente");
 		return "layout/base";
@@ -66,20 +71,23 @@ public class ClienteControlador {
 		clienteServicio.actualizar(cliente);
 
 		redirectAttributes.addFlashAttribute("mensaje", "Cliente actualizado correctamente");
-		redirectAttributes.addFlashAttribute("tipo", "warning");
+		redirectAttributes.addFlashAttribute("tipo", "success");
 
 		return "redirect:/clientes";
 	}
 
 	@GetMapping("/eliminar/{id}")
 	public String eliminar(@PathVariable Integer id, RedirectAttributes ra) {
-		try {
-			clienteServicio.eliminar(id);
-			ra.addFlashAttribute("ok", "Cliente eliminado correctamente.");
-		} catch (Exception e) {
-
-			ra.addFlashAttribute("error", "No se puede eliminar: el cliente está asociado a uno o más pedidos.");
-		}
-		return "redirect:/clientes";
+	    try {
+	        clienteServicio.eliminar(id);
+	        ra.addFlashAttribute("mensaje", "Cliente eliminado correctamente.");
+	        ra.addFlashAttribute("tipo", "success"); 
+	    } catch (Exception e) {
+	        ra.addFlashAttribute("mensaje",
+	            "No se puede eliminar: el cliente está asociado a uno o más pedidos.");
+	        ra.addFlashAttribute("tipo", "info"); 
+	    }
+	    return "redirect:/clientes";
 	}
+
 }

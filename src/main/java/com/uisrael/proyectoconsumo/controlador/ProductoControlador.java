@@ -40,14 +40,17 @@ public class ProductoControlador {
 	}
 
 	@PostMapping("/guardar")
-	public String guardar(@ModelAttribute("producto") ProductoModelo producto, RedirectAttributes redirectAttributes) {
-
-		productoServicio.guardar(producto);
-
-		redirectAttributes.addFlashAttribute("mensaje", "Producto creado correctamente");
-		redirectAttributes.addFlashAttribute("tipo", "success");
-
-		return "redirect:/productos";
+	public String guardar(@ModelAttribute("producto") ProductoModelo producto, RedirectAttributes ra) {
+	    try {
+	        productoServicio.guardar(producto);
+	        ra.addFlashAttribute("mensaje", "Producto creado correctamente");
+	        ra.addFlashAttribute("tipo", "success"); 
+	        return "redirect:/productos";
+	    } catch (RuntimeException e) {
+	        ra.addFlashAttribute("mensaje", e.getMessage());
+	        ra.addFlashAttribute("tipo", "info"); 
+	        return "redirect:/productos/nuevo";
+	    }
 	}
 
 	@GetMapping("/editar/{id}")
@@ -72,13 +75,16 @@ public class ProductoControlador {
 	}
 
 	@GetMapping("/eliminar/{id}")
-	public String eliminar(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
-
-		productoServicio.eliminar(id);
-
-		redirectAttributes.addFlashAttribute("mensaje", "Producto eliminado correctamente");
-		redirectAttributes.addFlashAttribute("tipo", "danger");
-
-		return "redirect:/productos";
+	public String eliminar(@PathVariable Integer id, RedirectAttributes ra) {
+	    try {
+	        productoServicio.eliminar(id);
+	        ra.addFlashAttribute("mensaje", "Producto eliminado correctamente");
+	        ra.addFlashAttribute("tipo", "success"); 
+	    } catch (RuntimeException e) {
+	        ra.addFlashAttribute("mensaje", e.getMessage());
+	        ra.addFlashAttribute("tipo", "success"); 
+	    }
+	    return "redirect:/productos";
 	}
+
 }

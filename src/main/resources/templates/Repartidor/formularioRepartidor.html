@@ -23,19 +23,24 @@
 				</div>
 
 				<div class="col-md-4">
-					<label class="form-label">CI</label> <input class="form-control"
-						th:field="*{ci}" required pattern="^(\d{10})$" maxlength="10">
+					<label class="form-label">Identificación</label> <input
+						class="form-control" th:field="*{ci}" required
+						pattern="^[0-9]{10}$" maxlength="10" inputmode="numeric"
+						oninput="this.value=this.value.replace(/[^0-9]/g,'')"
+						th:readonly="${repartidor.id_repartidor != 0}">
 				</div>
 
 				<div class="col-md-4">
 					<label class="form-label">Teléfono</label> <input
 						class="form-control" th:field="*{telefono}" required
-						pattern="^\d{9,10}$" maxlength="10">
+						pattern="^[0-9]{9,10}$" maxlength="10" inputmode="numeric"
+						oninput="this.value=this.value.replace(/[^0-9]/g,'')">
 				</div>
 
 				<div class="col-md-4">
-					<label class="form-label">Email</label> <input class="form-control"
-						th:field="*{email}" type="email" required maxlength="100"
+					<label class="form-label">Correo electrónico</label> <input
+						class="form-control" th:field="*{email}" type="email" required
+						maxlength="100"
 						pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
 						title="Ingrese un correo válido. Ej: usuario@dominio.com">
 				</div>

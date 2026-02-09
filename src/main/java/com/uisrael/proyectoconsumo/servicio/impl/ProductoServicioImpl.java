@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import com.uisrael.proyectoconsumo.modelo.ProductoModelo;
@@ -37,21 +38,35 @@ public class ProductoServicioImpl implements ProductoServicio {
 
 	@Override
 	public void guardar(ProductoModelo producto) {
-		String url = baseUrl + "/api/producto";
-		restTemplate.postForObject(url, producto, ProductoModelo.class);
+
+	    
+	    if (producto.getPrecio_unitario() <= 0) {
+	        throw new RuntimeException("El precio debe ser mayor a 0");
+	    }
+
+	    if (producto.getStock_actual() <= 0) {
+	        throw new RuntimeException("El stock debe ser mayor a 0");
+	    }
+
+
+	    String url = baseUrl + "/api/producto";
+	    restTemplate.postForObject(url, producto, ProductoModelo.class);
 	}
+
 
 	@Override
 	public void actualizar(ProductoModelo producto) {
-		Integer id = producto.getId_producto(); 
+		Integer id = producto.getId_producto();
 		String url = baseUrl + "/api/producto/" + id;
 		restTemplate.put(url, producto);
 	}
 
-	@Override
 	public void eliminar(Integer id) {
-		String url = baseUrl + "/api/producto/" + id;
-		restTemplate.delete(url);
+		try {
+			restTemplate.delete(baseUrl + "/api/producto/" + id);
+		} catch (HttpClientErrorException.Conflict e) {
+			throw new RuntimeException("No se puede eliminar el producto porque está asociado a pedidos.");
+		}
 	}
 
 }

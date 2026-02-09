@@ -4,7 +4,11 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
 import com.uisrael.proyectoconsumo.modelo.ZonaEntregaModelo;
@@ -37,8 +41,14 @@ public class ZonaEntregaServicioImpl implements ZonaEntregaServicio {
 
 	@Override
 	public void guardar(ZonaEntregaModelo zona) {
-		String url = baseUrl + "/api/zonaEntrega";
-		restTemplate.postForObject(url, zona, ZonaEntregaModelo.class);
+	    String url = baseUrl + "/api/zonaEntrega";
+
+	    ZonaEntregaModelo guardada = restTemplate.postForObject(url, zona, ZonaEntregaModelo.class);
+
+	  
+	    if (guardada != null && guardada.getId_zona_entrega() != null) {
+	        zona.setId_zona_entrega(guardada.getId_zona_entrega());
+	    }
 	}
 
 	@Override
@@ -50,8 +60,15 @@ public class ZonaEntregaServicioImpl implements ZonaEntregaServicio {
 
 	@Override
 	public void eliminar(Integer id) {
-		String url = baseUrl + "/api/zonaEntrega/" + id;
-		restTemplate.delete(url);
-	}
+	    String url = baseUrl + "/api/zonaEntrega/" + id;
 
+	    try {
+	        ResponseEntity<Void> resp = restTemplate.exchange(url, HttpMethod.DELETE, HttpEntity.EMPTY, Void.class);
+	        System.out.println("DELETE ZONA -> " + url + " status=" + resp.getStatusCode());
+	    } catch (HttpStatusCodeException e) {
+	        System.out.println("DELETE ZONA ERROR -> " + url + " status=" + e.getStatusCode()
+	                + " body=" + e.getResponseBodyAsString());
+	        throw e; 
+	    }
+	}
 }
